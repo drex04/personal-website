@@ -1,0 +1,29 @@
+{
+  "name": "personal-website",
+  "version": "1.0.0",
+  "description": "Drew Nollsch's personal website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drex04/personal-website.git"
+  },
+  "keywords": [
+    "heroku"
+  ],
+  "author": "Drew Nollsch",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "bugs": {
+    "url": "https://github.com/drex04/personal-website/issues"
+  },
+  "homepage": "https://github.com/drex04/personal-website#readme",
+  "engines": {
+    "node": "16.9.1"
+  }
+}
