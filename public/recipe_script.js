@@ -79,13 +79,6 @@ class View {
         this.labelInputSubmitterName.setAttribute("for", 'submitterName')
         this.labelInputSubmitterName.innerHTML = "your name"
 
-        this.input.submitterName = this.createElement('input')
-        this.input.submitterName.type = 'text'
-        this.input.submitterName.placeholder = 'TEST...'
-        this.input.submitterName.id = 'test'
-        console.log(this.input.submitterName)
-
-
         // input recipe name
         this.inputRecipeName = this.createElement('input')
         this.inputRecipeName.type = 'text'
@@ -128,6 +121,14 @@ class View {
 
         // Append the title, form, and recipe list to the app
         this.app.append(this.form, this.recipeList)
+
+        // VERSION 2 WITH NESTED OBJECTS
+        this.input = {
+            recipeName
+        }
+
+
+
     }
        
     // Create an element with an optional CSS class
@@ -145,12 +146,25 @@ class View {
         return element
     }
 
-    // get and reset input value
-    get _recipeInput() {
+    // get input values
+    get _recipeName() {
+        return this.inputRecipeName.value
+    }
+    get _submitterName() {
+        return this.inputSubmitterName.value
+    }
+    get _ingredients() {
+        return this.inputIngredients.value
+    }
+    get _cookingMethod() {
         return this.inputCookingMethod.value
     }
 
-    _resetRecipeInput() {
+    // reset input values
+    _resetRecipeInputs() {
+        this.recipeName = ''
+        this.submitterName = ''
+        this.ingredients = ''
         this.inputCookingMethod.value = ''
     }
 
@@ -209,7 +223,7 @@ class View {
                 sublistUL.appendChild(sublistCookingMethod)
 
                 const spanCookingMethod = this.createElement('span')
-                spanCookingMethod.textContent = recipe.cookingMethod
+                spanCookingMethod.textContent = recipe.method
                 sublistCookingMethod.append(spanCookingMethod)
 
                 // Append nodes to the recipe list
@@ -225,9 +239,13 @@ class View {
         this.form.addEventListener('submit', event => {
             event.preventDefault()
 
-            if (this._cookingMethod) {
-                handler(this._cookingMethod)
-                this._resetCookingMethod
+            if (this._recipeName && this._submitterName && this._ingredients && this._cookingMethod) {
+                handler(this._recipeName, this._submitterName, this._ingredients, this._cookingMethod)
+
+                this._resetRecipeInputs
+
+            } else {
+                alert("Please complete recipe info!")
             }
 
         })
@@ -254,8 +272,8 @@ class Controller {
     }
 
     
-    handleAddRecipe = cookingMethod => {
-        this.model.addRecipe('','','',cookingMethod)
+    handleAddRecipe = (recipeName, submitterName, ingredients, cookingMethod) => {
+        this.model.addRecipe(recipeName,submitterName,ingredients,cookingMethod)
 
     }
 
