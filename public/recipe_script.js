@@ -27,6 +27,24 @@ class Model {
     _commit(recipes) {
         this.onRecipeListChanged(recipes)
         localStorage.setItem('recipes', JSON.stringify(recipes))
+
+        function postRecipe(recipes) {
+            // for prod, use fetch('http://www.drewnollsch.com/recipes')
+            fetch('http://localhost:80/recipes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify(recipes)
+            })
+                .catch(error => console.log(error))
+
+        }
+        
+        var newRecipe = recipes.slice(-1)
+        postRecipe(newRecipe)
+
     }
 
     addRecipe(recipeName, submitterName, ingredients, cookingMethod) {
@@ -46,7 +64,7 @@ class Model {
     // Map through all recipes, and replace the text of the recipe with the specified id 
     editRecipe(id, updatedText) {
         this.recipes = this.recipes.map((recipe) =>
-            recipe.id === id ? {id: recipe.id, text: updatedText} : recipe,
+            recipe.id === id ? { id: recipe.id, text: updatedText } : recipe,
         )
 
         this._commit(this.recipes)
@@ -58,7 +76,7 @@ class Model {
 
         this._commit(this.recipes)
     }
-    
+
 }
 
 class View {
@@ -68,12 +86,16 @@ class View {
 
         // The form, with four [type="text"] inputs, and a submit button
         this.form = this.createElement('form')
+        //this.form.action = "/recipe-data"
+        this.form.method = "POST"
+
 
         // input submitter name
         this.inputSubmitterName = this.createElement('input')
         this.inputSubmitterName.type = 'text'
         this.inputSubmitterName.placeholder = 'Enter your name here...'
         this.inputSubmitterName.id = 'submitterName'
+        this.inputSubmitterName.name = 'submitterName'
         // label input submitter name
         this.labelInputSubmitterName = this.createElement('label')
         this.labelInputSubmitterName.setAttribute("for", 'submitterName')
@@ -84,6 +106,7 @@ class View {
         this.inputRecipeName.type = 'text'
         this.inputRecipeName.placeholder = 'Enter recipe name here...'
         this.inputRecipeName.id = 'recipeName'
+        this.inputRecipeName.name = 'recipeName'
         // label input recipe name
         this.labelInputRecipeName = this.createElement('label')
         this.labelInputRecipeName.setAttribute("for", 'recipeName')
@@ -95,6 +118,7 @@ class View {
         this.inputIngredients.rows = '10'
         this.inputIngredients.placeholder = 'Enter recipe ingredients here...'
         this.inputIngredients.id = 'ingredients'
+        this.inputIngredients.name = 'ingredients'
         // label input ingredients
         this.labelInputIngredients = this.createElement('label')
         this.labelInputIngredients.setAttribute("for", 'ingredients')
@@ -105,11 +129,12 @@ class View {
         this.inputCookingMethod.rows = '10'
         this.inputCookingMethod.placeholder = 'Enter cooking instructions here...'
         this.inputCookingMethod.id = 'cookingMethod'
+        this.inputCookingMethod.name = 'cookingMethod'
         // label input cooking method
         this.labelInputCookingMethod = this.createElement('label')
         this.labelInputCookingMethod.setAttribute("for", 'cookingMethod')
         this.labelInputCookingMethod.innerHTML = "cooking instructions"
-    
+
         this.submitButton = this.createElement('button')
         this.submitButton.textContent = 'submit recipe'
 
@@ -130,7 +155,7 @@ class View {
 
 
     }
-       
+
     // Create an element with an optional CSS class
     createElement(tag, className) {
         const element = document.createElement(tag)
@@ -187,7 +212,7 @@ class View {
                 // Create sublist to hold recipe name, submitter name, ingredients, method
                 const sublistUL = this.createElement('ul')
                 li.appendChild(sublistUL)
-                
+
                 // Recipe name & submitter name in the same span
                 const sublistRecipeHeader = this.createElement('li', 'recipeHeader')
                 sublistUL.appendChild(sublistRecipeHeader)
@@ -271,9 +296,9 @@ class Controller {
         this.view.displayRecipes(recipes)
     }
 
-    
+
     handleAddRecipe = (recipeName, submitterName, ingredients, cookingMethod) => {
-        this.model.addRecipe(recipeName,submitterName,ingredients,cookingMethod)
+        this.model.addRecipe(recipeName, submitterName, ingredients, cookingMethod)
 
     }
 
