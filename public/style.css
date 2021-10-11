@@ -58,53 +58,49 @@ p a:hover {
     border-color: #f4b300;
 }
 
-button {
-    padding: 10px;
+input, select, textarea {
+    font: 90% "Graphik", sans-serif;
+    background-color: #fff;
+    letter-spacing: 0.7px;
+    color: #222;
+    margin: 0 auto;
+    max-width: 55em;
 }
 
-/* ToDo app CSS https://www.taniarascia.com/javascript-mvc-todo-app */
-#root {
-  max-width: 450px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
-
-form {
-  display: flex;
-  margin-bottom: 2rem;
-}
-
-[type="text"],
-button {
-  display: inline-block;
-  -webkit-appearance: none;
-  padding: .5rem 1rem;
-  font-size: 1rem;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-}
-
-button {
-  cursor: pointer;
-  background: #007bff;
-  color: white;
-  border: 2px solid #007bff;
-  margin: 0 .5rem;
-}
-
-[type="text"] {
+input[type=text], select {
   width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
-[type="text"]:active,
-[type="text"]:focus {
-  outline: 0;
-  border: 2px solid #007bff;
+textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
-[type="checkbox"] {
-  margin-right: 1rem;
-  font-size: 2rem;
+label {
+  font-weight: bold;
+}
+
+
+button {
+  width: 100%;
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 ul {
@@ -123,7 +119,7 @@ li {
 li span {
   display: inline-block;
   padding: .5rem;
-  width: 250px;
+  width: 70%;
   border-radius: 4px;
   border: 2px solid transparent;
 }
@@ -138,4 +134,9 @@ li span:focus {
   background: rgba(179, 207, 255, 0.52)
 }
 
-/* End ToDo tutorial CSS */
+.recipeHeader {
+    font-size: 1.5em;
+    text-align: left;
+    color: #222;
+    font-weight: bold;
+}
