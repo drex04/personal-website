@@ -8,10 +8,6 @@ class Model {
 
 
     }
-    /*
-    if (JSON.parse(localStorage.getItem('recipes'))) {
-        this.recipes = JSON.parse(localStorage.getItem('recipes'))
-    */
 
     bindRecipeListChanged(callback) {
         this.onRecipeListChanged = callback
@@ -20,7 +16,6 @@ class Model {
     _commit(recipes) {
         this.onRecipeListChanged(recipes)
 
-        localStorage.setItem('recipes', JSON.stringify(recipes))
 
         function postRecipe(recipes) {
             // for prod, use fetch('http://www.drewnollsch.com/recipes')
@@ -55,7 +50,7 @@ class Model {
         this._commit(this.recipes)
     }
 
-    /*
+    /* EDIT AND DELETE UNUSED FOR NOW
     // Map through all recipes, and replace the text of the recipe with the specified id 
     editRecipe(id, updatedText) {
         this.recipes = this.recipes.map((recipe) =>
@@ -85,6 +80,7 @@ class View {
         this.form = this.createElement('form')
         //this.form.action = "/recipe-data"
         this.form.method = "POST"
+        this.form.id = 'recipeSubmissionForm'
 
 
         // input submitter name
@@ -258,6 +254,8 @@ class View {
                 handler(this._recipeName, this._submitterName, this._ingredients, this._cookingMethod)
 
                 this._resetRecipeInputs
+                document.getElementById('recipeSubmissionForm').reset();
+
 
             } else {
                 alert("Please complete recipe info!")
