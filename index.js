@@ -17,6 +17,16 @@ app.use(express.static('public'));
 // Connect to MongoDB client
 var connectionString = process.env.MONGO_STRING
 
+app.get('/recipes', (req, res) => {
+    // print full URL for debugging
+    const protocol = req.protocol;
+    const hostname = req.host;
+    const path = req.originalUrl;
+
+    const fullURL = protocol + "://" + hostname + path;
+    console.log(fullURL);
+})
+
 MongoClient.connect(connectionString, { useUnifiedTopology: true })
     .then(client => {
         console.log('Connected to Database')
