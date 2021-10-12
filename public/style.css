@@ -122,11 +122,7 @@ li span {
   width: 70%;
   border-radius: 4px;
   border: 2px solid transparent;
-}
-
-li span:before {
-  content: '\n';
-  white-space: pre;
+  white-space: pre-line;
 }
 
 .nestedRecipe {
