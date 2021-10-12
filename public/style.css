@@ -117,7 +117,7 @@ li {
 }
 
 li span {
-  display: inline;
+  display: inline-block;
   padding: .5rem;
   width: 70%;
   border-radius: 4px;
