@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser')
-const path = require('path');
+const dotenv = require('dotenv');
+dotenv.config();
 const MongoClient = require('mongodb').MongoClient
 
 const app = express();
@@ -12,8 +13,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.json());
 
 // Connect to MongoDB client
-connectionString = 'mongodb+srv://recipe-db-user2:p6BkVsHOfQ9LVyUe@cluster0.zmc5f.mongodb.net/Cluster0?retryWrites=true&w=majority',
-
+var connectionString = process.env.MONGO_STRING
 
 MongoClient.connect(connectionString, { useUnifiedTopology: true })
     .then(client => {
