@@ -108,7 +108,7 @@ ul {
 }
 
 li {
-  display: flex;
+  display: block;
   align-items: center;
   padding: 1rem;
   margin-bottom: 1rem;
@@ -126,7 +126,7 @@ li span {
 }
 
 .nestedRecipe {
-  border-bottom: 5px solid #04AA6D;
+  border-bottom: 3px solid #04AA6D;
 }
 
 .recipeHeader {
