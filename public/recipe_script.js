@@ -18,8 +18,9 @@ class Model {
 
 
         function postRecipe(recipes) {
-            // for prod, use fetch('http://www.drewnollsch.com/recipes')
-            fetch('http://localhost:80/recipes', {
+            // for prod, use fetch('http://www.drewnollsch.com/recipes'
+            // for local dev, use fetch('http://localhost:80/recipes'
+            fetch('http://www.drewnollsch.com/recipes', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -281,8 +282,9 @@ class Controller {
         // Display initial recipes
 
         // Initialize data by fetching from database the state of the model
-        // Note: for PROD env, use fetch('http://www.drewnollsch.com/recipes') instead
-        fetch('http://localhost:80/recipes', {
+        // Note: for PROD env, use fetch('http://www.drewnollsch.com/recipes' instead
+        // for local dev, use fetch('http://localhost:80/recipes'
+        fetch('http://www.drewnollsch.com/recipes', {
             method: 'GET',
             headers: {
                 //'Content-Type': 'application/json'
