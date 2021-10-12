@@ -23,7 +23,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
         const db = client.db('drew-homepage-db')
         const recipesCollection = db.collection('recipes')
 
-        app.get('/recipes', (req, res) => {
+        app.get('/recipes/', (req, res) => {
             db.collection('recipes').find().toArray()
 
                 .then(results => {
