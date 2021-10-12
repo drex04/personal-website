@@ -2,23 +2,16 @@
 
 class Model {
     constructor() {
-        // The state of the model, an array of recipe objects, prepopulated with some test data if nothing else
 
-        if (JSON.parse(localStorage.getItem('recipes'))) {
-            this.recipes = JSON.parse(localStorage.getItem('recipes'))
-        } else {
-            this.recipes = [
-                {
-                    id: 1,
-                    name: "Miso Spaghetti",
-                    submitter: "Travis",
-                    ingredients: "1 tbsp white miso, 1 package spaghetti, 1 oz parmesan cheese, Some precooked vegetables of your choice, e.g. blanched broccoli, frozen peas, etc., Shredded nori or furikake (optional)",
-                    cookingMethod: "Cook the spaghetti, drain, and reserve 1/2 cup pasta water. Stir the miso & parmesan cheese into the hot pasta while adding splashes of starchy pasta water. Toss spaghetti until the cheese is incorporated and fully coats pasta. Add some vegetables if you like. Garnish with shredded nori or furikake.",
-                }
-            ]
-        }
+        //initial test data, if no connection to backend db
+        this.recipes = [{ id: 1, name: "Oatmeal", submitter: 'Drew', ingredients: 'oats', cookingMethod: 'just boil it' }]
+
 
     }
+    /*
+    if (JSON.parse(localStorage.getItem('recipes'))) {
+        this.recipes = JSON.parse(localStorage.getItem('recipes'))
+    */
 
     bindRecipeListChanged(callback) {
         this.onRecipeListChanged = callback
@@ -26,6 +19,7 @@ class Model {
 
     _commit(recipes) {
         this.onRecipeListChanged(recipes)
+
         localStorage.setItem('recipes', JSON.stringify(recipes))
 
         function postRecipe(recipes) {
@@ -41,7 +35,7 @@ class Model {
                 .catch(error => console.log(error))
 
         }
-        
+
         var newRecipe = recipes.slice(-1)
         postRecipe(newRecipe)
 
@@ -61,6 +55,7 @@ class Model {
         this._commit(this.recipes)
     }
 
+    /*
     // Map through all recipes, and replace the text of the recipe with the specified id 
     editRecipe(id, updatedText) {
         this.recipes = this.recipes.map((recipe) =>
@@ -76,6 +71,8 @@ class Model {
 
         this._commit(this.recipes)
     }
+
+*/
 
 }
 
@@ -146,13 +143,6 @@ class View {
 
         // Append the title, form, and recipe list to the app
         this.app.append(this.form, this.recipeList)
-
-        // VERSION 2 WITH NESTED OBJECTS
-        this.input = {
-            recipeName
-        }
-
-
 
     }
 
@@ -310,3 +300,22 @@ class Controller {
 
 const app = new Controller(new Model(), new View());
 
+// Fetch from database the state of the model, an array of recipe objects, and prepopulate with some test data if nothing found
+// for prod, use fetch('http://www.drewnollsch.com/recipes')
+fetch('http://localhost:80/recipes', {
+    method: 'GET',
+    headers: {
+        //'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+})
+    .then((response) => {
+        return response.json()
+    })
+    .then((data) => {
+        this.model.recipes = data
+    })
+    .then((recipes) => {
+        this.onRecipeListChanged(this.model.recipes)
+    })
+    .catch(error => console.log(error))

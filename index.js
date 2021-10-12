@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.json());
 
 // Connect to MongoDB client
-connectionString = 'mongodb+srv://recipe-db-user:jwUKTkprpAFsPV5@cluster0.zmc5f.mongodb.net/Cluster0?retryWrites=true&w=majority',
+connectionString = 'mongodb+srv://recipe-db-user2:p6BkVsHOfQ9LVyUe@cluster0.zmc5f.mongodb.net/Cluster0?retryWrites=true&w=majority',
 
 
 MongoClient.connect(connectionString, { useUnifiedTopology: true })
@@ -22,20 +22,26 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
         const recipesCollection = db.collection('recipes')
 
         app.use(express.static('public'));
-        
-        //app.get()
+
+        app.get('/recipes', (req, res) => {
+            db.collection('recipes').find().toArray()
+
+                .then(results => {
+                    res.send(results)
+                    res.status(200).end()
+                })
+                .catch(error => console.error(error))
+        })
 
         app.post('/recipes', (req, res) => {
             console.log(req.body)
             recipesCollection.insertMany(req.body)
-            .then(result => {
-                console.log(result)
-                res.status(201).end()
-            })
+
+                .then(result => {
+                    console.log(result)
+                    res.status(201).end()
+                })
         })
-
-        //app.listen()
-
 
     })
     .catch(error => console.error(error))
