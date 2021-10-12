@@ -12,6 +12,8 @@ app.listen(port, () => console.log(`Server is listening on port ${port}...`));
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.json());
 
+app.use(express.static('public'));
+
 // Connect to MongoDB client
 var connectionString = process.env.MONGO_STRING
 
@@ -20,8 +22,6 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
         console.log('Connected to Database')
         const db = client.db('drew-homepage-db')
         const recipesCollection = db.collection('recipes')
-
-        app.use(express.static('public'));
 
         app.get('/recipes', (req, res) => {
             db.collection('recipes').find().toArray()
