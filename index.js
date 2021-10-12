@@ -20,7 +20,7 @@ var connectionString = process.env.MONGO_STRING
 MongoClient.connect(connectionString, { useUnifiedTopology: true })
     .then(client => {
         console.log('Connected to Database')
-        const db = client.db('drew-homepage-db')
+        const db = client.db('homepageDatabase')
         const recipesCollection = db.collection('recipes')
 
         app.get('/recipes', (req, res) => {
