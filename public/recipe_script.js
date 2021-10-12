@@ -278,8 +278,30 @@ class Controller {
         this.model.bindRecipeListChanged(this.onRecipeListChanged)
         this.view.bindAddRecipe(this.handleAddRecipe)
 
+        
+        
         // Display initial recipes
-        this.onRecipeListChanged(this.model.recipes)
+
+        // Initialize data by fetching from database the state of the model
+        // Note: for PROD env, use fetch('http://www.drewnollsch.com/recipes') instead
+        fetch('http://localhost:80/recipes', {
+            method: 'GET',
+            headers: {
+                //'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        })
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                this.model.recipes = data
+            })
+            .then((recipes) => {
+                // Then run to display initial recipes
+                this.onRecipeListChanged(this.model.recipes)
+            })
+            .catch(error => console.log(error))
     }
 
     onRecipeListChanged = (recipes) => {
@@ -299,23 +321,3 @@ class Controller {
 }
 
 const app = new Controller(new Model(), new View());
-
-// Fetch from database the state of the model, an array of recipe objects, and prepopulate with some test data if nothing found
-// for prod, use fetch('http://www.drewnollsch.com/recipes')
-fetch('http://localhost:80/recipes', {
-    method: 'GET',
-    headers: {
-        //'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-})
-    .then((response) => {
-        return response.json()
-    })
-    .then((data) => {
-        this.model.recipes = data
-    })
-    .then((recipes) => {
-        this.onRecipeListChanged(this.model.recipes)
-    })
-    .catch(error => console.log(error))
