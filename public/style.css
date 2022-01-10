@@ -6,16 +6,15 @@
 }
 
 body {
-    font: 120% "Graphik", sans-serif;
+    font-family: "Zen Kaku Gothic Antique";
     background-color: #fff;
-    letter-spacing: 0.7px;
+    letter-spacing: 0.5px;
     color: #222;
     margin: 0 auto;
     max-width: 55em;
 }
 
 h1 {
-    font-size: 2em;
     text-align: left;
     color: #111;
     margin-top: 0.25em;
@@ -32,7 +31,6 @@ h1 a:hover {
 }
 
 h2 {
-    font-size: 1.5em;
     text-align: left;
     color: #222;
 }
@@ -49,6 +47,7 @@ p {
 
 p a {
     text-align: left;
+    font-weight: bold;
     color: #222;
     text-decoration: none;
     border-bottom: 2px solid;
@@ -59,7 +58,7 @@ p a:hover {
 }
 
 input, select, textarea {
-    font: 90% "Graphik", sans-serif;
+    font: 90% "Zen Kaku Gothic Antique";
     background-color: #fff;
     letter-spacing: 0.7px;
     color: #222;

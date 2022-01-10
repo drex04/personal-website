@@ -1,3 +1,5 @@
+"use strict";
+
 const express = require('express');
 const bodyParser = require('body-parser')
 const dotenv = require('dotenv');
@@ -14,42 +16,54 @@ app.use(express.json());
 
 app.use(express.static('public'));
 
-// Connect to MongoDB client
-var connectionString = process.env.MONGO_STRING
+// // Connect to MongoDB client
+// var connectionString = process.env.MONGO_STRING
 
-MongoClient.connect(connectionString, { useUnifiedTopology: true })
-    .then(client => {
-        console.log('Connected to Database')
-        const db = client.db('homepageDatabase')
-        const recipesCollection = db.collection('recipes')
+// MongoClient.connect(connectionString, { useUnifiedTopology: true })
+//     .then(client => {
+//         console.log('Connected to Database')
+//         const db = client.db('homepageDatabase')
+//         const recipesCollection = db.collection('recipes')
 
-        app.get('/recipes', (req, res) => {
-            // print full URL for debugging
-            const protocol = req.protocol;
-            const hostname = req.hostname;
-            const path = req.originalUrl;
+//         app.get('/recipes', (req, res) => {
+//             // print full URL for debugging
+//             const protocol = req.protocol;
+//             const hostname = req.hostname;
+//             const path = req.originalUrl;
 
-            const fullURL = protocol + "://" + hostname + path;
-            console.log(fullURL);
+//             const fullURL = protocol + "://" + hostname + path;
+//             console.log(fullURL);
 
-            db.collection('recipes').find().toArray()
+//             db.collection('recipes').find().toArray()
 
-                .then(results => {
-                    res.send(results)
-                    res.status(200).end()
-                })
-                .catch(error => console.error(error))
-        })
+//                 .then(results => {
+//                     res.send(results)
+//                     res.status(200).end()
+//                 })
+//                 .catch(error => console.error(error))
+//         })
 
-        app.post('/recipes', (req, res) => {
-            console.log(req.body)
-            recipesCollection.insertMany(req.body)
+//         app.post('/recipes', (req, res) => {
+//             console.log(req.body)
+//             recipesCollection.insertMany(req.body)
 
-                .then(result => {
-                    console.log(result)
-                    res.status(201).end()
-                })
-        })
+//                 .then(result => {
+//                     console.log(result)
+//                     res.status(201).end()
+//                 })
+//         })
 
-    })
-    .catch(error => console.error(error))
+//     })
+//     .catch(error => console.error(error))
+
+// Connect to MongoDB from Vercel serverless function
+// Import the dependency.
+const clientPromise = require('./mongodb-client');
+// Handler
+module.exports = async (req, res) => {
+    // Get the MongoClient by calling await on the promise.
+    // Because it is a promise, it will only resolve once.
+    const client = await clientPromise;
+    // Use the client to return the name of the connected database.
+    res.status(200).json({ dbName: client.db().databaseName });
+}
