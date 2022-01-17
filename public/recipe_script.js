@@ -1,5 +1,3 @@
-// Starting from https://www.taniarascia.com/javascript-mvc-todo-app/
-
 class Model {
     constructor() {
 
@@ -51,25 +49,6 @@ class Model {
         this._commit(this.recipes)
     }
 
-    /* EDIT AND DELETE UNUSED FOR NOW
-    // Map through all recipes, and replace the text of the recipe with the specified id 
-    editRecipe(id, updatedText) {
-        this.recipes = this.recipes.map((recipe) =>
-            recipe.id === id ? { id: recipe.id, text: updatedText } : recipe,
-        )
-
-        this._commit(this.recipes)
-    }
-
-    // Filter a recipe out of the array by id
-    deleteRecipe(id) {
-        this.recipes = this.recipes.filter((recipe) => recipe.id !== id)
-
-        this._commit(this.recipes)
-    }
-
-*/
-
 }
 
 class View {
@@ -93,7 +72,7 @@ class View {
         // label input submitter name
         this.labelInputSubmitterName = this.createElement('label')
         this.labelInputSubmitterName.setAttribute("for", 'submitterName')
-        this.labelInputSubmitterName.innerHTML = "your name"
+        this.labelInputSubmitterName.innerHTML = "Your Name"
 
         // input recipe name
         this.inputRecipeName = this.createElement('input')
@@ -104,7 +83,7 @@ class View {
         // label input recipe name
         this.labelInputRecipeName = this.createElement('label')
         this.labelInputRecipeName.setAttribute("for", 'recipeName')
-        this.labelInputRecipeName.innerHTML = "recipe name"
+        this.labelInputRecipeName.innerHTML = "Recipe Name"
 
 
         // input ingredients
@@ -116,7 +95,7 @@ class View {
         // label input ingredients
         this.labelInputIngredients = this.createElement('label')
         this.labelInputIngredients.setAttribute("for", 'ingredients')
-        this.labelInputIngredients.innerHTML = "ingredients"
+        this.labelInputIngredients.innerHTML = "Ingredients"
 
         // input cooking method
         this.inputCookingMethod = this.createElement('textarea')
@@ -127,10 +106,10 @@ class View {
         // label input cooking method
         this.labelInputCookingMethod = this.createElement('label')
         this.labelInputCookingMethod.setAttribute("for", 'cookingMethod')
-        this.labelInputCookingMethod.innerHTML = "cooking instructions"
+        this.labelInputCookingMethod.innerHTML = "Cooking Instructions"
 
         this.submitButton = this.createElement('button')
-        this.submitButton.textContent = 'submit recipe'
+        this.submitButton.textContent = 'Submit Recipe'
 
         // The visual representation of the recipe list
         this.recipeList = this.createElement('ul', 'recipe-list')
@@ -214,11 +193,11 @@ class View {
                     }
                 }
                 if (recipe.submitter.slice(-1) === "s" || recipe.submitter.slice(-1) === "S") {
-                    spanRecipeHeader.textContent = recipe.submitter.toLowerCase() + "' ◆ " + recipe.name.toLowerCase()
+                    spanRecipeHeader.textContent = recipe.submitter + "' ◆ " + recipe.name
                     sublistRecipeHeader.append(spanRecipeHeader)
                 }
                 else {
-                    spanRecipeHeader.textContent = recipe.submitter.toLowerCase() + "'s ◆ " + recipe.name.toLowerCase()
+                    spanRecipeHeader.textContent = recipe.submitter + "'s ◆ " + recipe.name
                     sublistRecipeHeader.append(spanRecipeHeader)
                 }
 

@@ -40,7 +40,6 @@ h2 {
 h3 {
     text-align: left;
     color: #222;
-    text-transform: lowercase;
 }
 
 p {
@@ -48,15 +47,15 @@ p {
 }
 
 p a {
-    text-align: left;
-    color: #222;
-    text-decoration: none;
-    border-bottom: 2px solid;
-}
-
+  color: #222;
+  text-decoration: none;
+  border-bottom: 2px solid;
+  margin: 0;
+}  
 p a:hover {
-    border-color: #f4b300;
-}
+  border-color: #f4b300;
+
+}  
 
 input, select, textarea {
     font: 90% "Graphik", sans-serif;
@@ -134,4 +133,42 @@ li span {
     text-align: left;
     color: #222;
     font-weight: bold;
+}
+
+.about-links {
+  display: flex;
+  justify-content: center;
+}
+
+.about-links a {
+  color: #222;
+  text-decoration: none;
+  border-bottom: 2px solid;
+  margin: 1em;
+}  
+
+.about-links a:hover {
+    border-color: #f4b300;
+}
+
+/* Style the tab */
+.tab {
+  display: flex;
+  justify-content: center;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: lightslategray;
+  margin: 1em;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #04AA6D;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
 }
